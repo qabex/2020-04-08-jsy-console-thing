@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>JSY edit & run</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/shoelace-css@1.0.0-beta24/dist/shoelace.css' />
+  <style>
+    body>main {
+      max-width: 40em;
+      margin: 2em auto;
+    }
+  </style>
+
+  <link href='https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css' rel='stylesheet' />
+	<script type=module src='https://cdn.jsdelivr.net/npm/prism-jsy/umd/prism-jsy.js'></script>
+  <script type=module src='https://cdn.jsdelivr.net/npm/lite-code-editor@0.0.3/esm/prism-editor.mjs'></script>
+</head>
+
+<body>
+  <main>
+
+<h3>JSY Editor:</h3>
+<prism-code-editor id='code_input' lang='jsy'>
+  console.log @
+    'A log message'
+    @{} ts: new Date
+    @[] ... arguments
+</prism-code-editor>
+
+<h3>Transpiled Javascript:</h3>
+<pre><code id='code_output' class='language-js'></code></pre>
+
+<br />
+
+<p>Invoke <code>jsy_fn()</code> to call your code in the developer javascript console!</p>
+
+  </main>
+  <script type='module' src='./esm/index.mjs'></script>
+</body>
+</html>

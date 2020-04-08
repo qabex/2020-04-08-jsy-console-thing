@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "files": [
+    "code/",
+    "esm/"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "jsy-transpile": "^0.8.5",
+    "rollup": "^2.3.4"
+  },
+  "scripts": {
+    "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
+    "build": "rollup --config",
+    "watch": "npm -s run build -- --watch",
+    "pretest": "npm -s run build",
+    "test": "true"
+  }
+}

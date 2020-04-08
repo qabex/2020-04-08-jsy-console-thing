@@ -1,0 +1,44 @@
+import jsy_transpile from 'jsy-transpile/esm/index.mjs'
+
+const code_in = document.querySelector('#code_input')
+const code_out = document.querySelector('#code_output')
+
+code_in.addEventListener @ 'src_code', @\ evt ::
+  refresh_transpile @ evt.detail
+
+Promise.resolve(code_in).then @ refresh_transpile
+
+async function refresh_transpile({src_code}) ::
+  code_out.innerHTML = ''
+  if ! src_code :: return
+
+  let plain_js
+  try ::
+    plain_js = jsy_transpile @ src_code
+  catch err ::
+    console.warn @ err.message
+    console.warn @ src_code.split(/\r?\n/)
+    return
+
+  ::
+    code_out.textContent = plain_js
+    await null
+    Prism.highlightElement(code_out)
+
+  let jsy_fn
+  window.jsy_fn = jsy_fn
+
+  try ::
+    await null
+    const fn_compile = new Function @ `{
+      return (async function() {
+        ${plain_js}
+      }) }`
+
+    jsy_fn = fn_compile()
+    window.jsy_fn = jsy_fn
+    console.log @ 'jsy_fn updated; try running jsy_fn()'
+  catch err ::
+    console.warn @ err.message
+    return
+
